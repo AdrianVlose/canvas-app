@@ -90,3 +90,5 @@ export class Logger {
     }
   }
 }
+
+// Imi place ca folosesti union type 

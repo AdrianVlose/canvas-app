@@ -50,3 +50,5 @@ export class App {
 
   updateLogger() {}
 }
+
+// Imi place ca codul e cat de cat organizat

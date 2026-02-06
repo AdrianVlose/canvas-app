@@ -85,3 +85,4 @@ export class Shape {
     this.isShapeFilled = isFilled;
   }
 }
+// Imi place cum ai impartit dar ca sugestie eu as fi folosit o clasa abstracta pentru shape

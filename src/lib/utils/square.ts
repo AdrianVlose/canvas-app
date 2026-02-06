@@ -3,13 +3,16 @@ import { Shape } from './shape.js';
 
 export class Square extends Shape {
   protected width: number;
+
   constructor(startX: number, startY: number) {
     super(startX, startY);
     this.width = 1;
   }
+  
   override checkIfPointIsInside(point: Point2D): boolean {
     const topLeftX = Math.min(this.startX, this.endX);
     const topLeftY = Math.min(this.startY, this.endY);
+
     if (
       point.x >= topLeftX &&
       point.x <= topLeftX + this.width &&
@@ -18,6 +21,7 @@ export class Square extends Shape {
     ) {
       return true;
     }
+
     return false;
   }
 
@@ -31,6 +35,7 @@ export class Square extends Shape {
     const topLeftX = Math.min(this.startX, this.endX);
     const topLeftY = Math.min(this.startY, this.endY);
     context.beginPath();
+
     if (this.isShapeFilled) {
       context.fillStyle = this.color;
       context.fillRect(topLeftX, topLeftY, this.width, this.width);
@@ -39,6 +44,7 @@ export class Square extends Shape {
       context.lineWidth = this.lineSize;
       context.strokeRect(topLeftX, topLeftY, this.width, this.width);
     }
+
     context.closePath();
   }
 }

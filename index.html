@@ -3,30 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Canvas App</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <main>
       <section class="tools" id="tools">
         <label for="shapes-select"></label>
+
         <select name="shapes" id="shapes-select">
           <option value="0">Rectangle</option>
           <option value="1">Circle</option>
           <option value="2">Square</option>
         </select>
+
         <label for="stroke-select"></label>
+
         <select name="stroke-size" id="stroke-select">
           <option value="0">Small</option>
           <option value="1">Medium</option>
           <option value="2">Big</option>
         </select>
+
         <label for="fill-select"></label>
+
         <select name="fill-shape" id="fill-select">
           <option value="0">Outlined</option>
           <option value="1">Filled</option>
         </select>
+
         <label for="color-input"></label>
+
         <input type="color" id="shape-color" class="color-input" />
       </section>
       <div class="main-content">
@@ -38,6 +47,7 @@
             class="canvas-element"
           ></canvas>
         </section>
+
         <section class="right-side" id="logger">
           <ul id="informations" class="logger-list">
             <li id="canvas-width">Canvas Width: 900px</li>
@@ -50,6 +60,7 @@
         </section>
       </div>
     </main>
+    
     <script type="module" src="./dist/index.js"></script>
   </body>
 </html>

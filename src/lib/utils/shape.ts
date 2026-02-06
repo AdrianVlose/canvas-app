@@ -9,6 +9,7 @@ export class Shape {
   protected color: string;
   protected lineSize: number;
   protected isShapeFilled: boolean;
+
   constructor(startX: number, startY: number) {
     this.startX = startX;
     this.startY = startY;
@@ -23,9 +24,8 @@ export class Shape {
     if (
       (this.startX <= point.x && this.endX >= point.x) ||
       (this.startX <= point.x && this.endX >= point.x)
-    ) {
-      return true;
-    }
+    ) return true;
+
     return false;
   }
 
@@ -78,6 +78,8 @@ export class Shape {
       case 2:
         this.lineSize = 10;
         break;
+      default:
+        return;
     }
   }
 

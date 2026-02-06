@@ -5,18 +5,21 @@ export class Circle extends Shape {
   protected radius: number;
   protected centerX: number;
   protected centerY: number;
+
   constructor(startX: number, startY: number) {
     super(startX, startY);
     this.radius = 0;
     this.centerX = startX;
     this.centerY = startY;
   }
+
   override checkIfPointIsInside(point: Point2D): boolean {
     const differenceOnX = this.centerX - point.x;
     const differenceOnY = this.centerY - point.y;
     const squaredDistance =
       differenceOnX * differenceOnX + differenceOnY * differenceOnY;
     const squaredRadius = this.radius * this.radius;
+    
     return squaredDistance < squaredRadius;
   }
 
@@ -36,6 +39,7 @@ export class Circle extends Shape {
     this.centerY = (this.startY + this.endY) / 2;
     const differenceOnX = this.centerX - this.startX;
     const differenceOnY = this.centerY - this.startY;
+
     this.radius = Math.sqrt(
       Math.pow(differenceOnX, 2) + Math.pow(differenceOnY, 2),
     );
@@ -43,9 +47,11 @@ export class Circle extends Shape {
 
   override draw(context: CanvasRenderingContext2D): void {
     context.beginPath();
+
     if (this.isShapeFilled) {
       context.lineWidth = 1;
       context.fillStyle = this.color;
+
       context.arc(
         this.centerX,
         this.centerY,
@@ -58,6 +64,7 @@ export class Circle extends Shape {
     } else {
       context.strokeStyle = this.color;
       context.lineWidth = this.lineSize;
+
       context.arc(
         this.centerX,
         this.centerY,
@@ -68,6 +75,7 @@ export class Circle extends Shape {
       );
       context.stroke();
     }
+
     context.closePath();
   }
 }

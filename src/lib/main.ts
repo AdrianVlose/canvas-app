@@ -16,6 +16,7 @@ export const Main = () => {
   const colorInputElement = document.querySelector(
     '#shape-color',
   ) as HTMLInputElement;
+
   const app = new App(
     canvasElement,
     loggerElement,
@@ -24,5 +25,6 @@ export const Main = () => {
     fillSelectElement,
     colorInputElement,
   );
+  
   app.initialize();
 };

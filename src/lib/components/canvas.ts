@@ -25,10 +25,12 @@ export class Canvas {
   public boundStrokeHandler: (event: Event) => void;
   public boundIsFilledHandler: (event: Event) => void;
   public boundColorHandler: (event: Event) => void;
+
   protected updateLogger: (
     field: string,
     value: number | string | boolean,
   ) => void;
+
   constructor(
     canvasElement: HTMLCanvasElement,
     boundUpdateLogger: (
@@ -52,6 +54,7 @@ export class Canvas {
     this.startPointForDrawing = { x: 0, y: 0 };
     this.lastMouseCoordsOnCircleDrag = { x: 0, y: 0 };
     this.offset = { x: 0, y: 0 };
+    
     this.boundMouseMove = this.mouseMoveInCanvasHandler.bind(this);
     this.boundMouseUp = this.mouseUpInCanvasHandler.bind(this);
     this.boundShapeHandler = this.selectShapeHandler.bind(this);
@@ -71,21 +74,28 @@ export class Canvas {
 
   selectShapeHandler(event: Event) {
     const eventTarget = event.target as HTMLSelectElement;
+
     this.shapeType = Number(eventTarget.value);
   }
+
   selectStrokeHandler(event: Event) {
     const eventTarget = event.target as HTMLSelectElement;
     this.lineSize = Number(eventTarget.value);
+
     this.updateLogger('lineWidth', this.lineSize);
   }
+
   selectFillHandler(event: Event) {
     const eventTarget = event.target as HTMLSelectElement;
     this.isFilled = Number(eventTarget.value) ? true : false;
+
     this.updateLogger('isFilled', this.isFilled);
   }
+
   inputColorHandler(event: Event) {
     const eventTarget = event.target as HTMLInputElement;
     this.color = eventTarget.value;
+
     this.updateLogger('color', this.color);
   }
 
@@ -108,6 +118,7 @@ export class Canvas {
         x: this.startPointForDrawing.x,
         y: this.startPointForDrawing.y,
       };
+
       if (
         this.shapeIndex === -1 &&
         shape.checkIfPointIsInside(pointForChecking)
@@ -122,9 +133,9 @@ export class Canvas {
         this.isDrawMode = false;
       }
     });
-    if (this.isDrawMode) {
-      this.createShape();
-    }
+
+    if (this.isDrawMode) this.createShape();
+    
   }
 
   createShape() {
@@ -139,6 +150,7 @@ export class Canvas {
         rectangle.setIsShapeFilled = this.isFilled;
         this.shapes.push(rectangle);
         break;
+
       case 1:
         const circle = new Circle(
           this.startPointForDrawing.x,
@@ -149,6 +161,7 @@ export class Canvas {
         circle.setIsShapeFilled = this.isFilled;
         this.shapes.push(circle);
         break;
+
       case 2:
         const square = new Square(
           this.startPointForDrawing.x,
@@ -159,6 +172,9 @@ export class Canvas {
         square.setIsShapeFilled = this.isFilled;
         this.shapes.push(square);
         break;
+
+      default: 
+        return;
     }
 
     this.updateLogger('numberOfShapes', this.shapes.length);
@@ -174,6 +190,7 @@ export class Canvas {
       const startPointX = currentCanvasX - this.offset.x;
       const startPointY = currentCanvasY - this.offset.y;
       const lastShape = this.shapes.at(-1);
+
       if (lastShape instanceof Circle) {
         const mouseOffsetX =
           currentCanvasX - this.lastMouseCoordsOnCircleDrag.x;
@@ -182,6 +199,7 @@ export class Canvas {
         this.lastMouseCoordsOnCircleDrag.x = currentCanvasX;
         this.lastMouseCoordsOnCircleDrag.y = currentCanvasY;
         lastShape.dragShape(mouseOffsetX, mouseOffsetY);
+
       } else {
         lastShape?.dragShape(startPointX, startPointY);
       }
@@ -189,13 +207,16 @@ export class Canvas {
       const lastShape = this.shapes.at(-1);
       lastShape?.setNewEndCoords(currentCanvasX, currentCanvasY);
     }
+
     this.redraw();
   }
 
   mouseUpInCanvasHandler(event: MouseEvent) {
     event.stopPropagation();
+
     this.canvasElement.removeEventListener('mousemove', this.boundMouseMove);
     this.canvasElement.removeEventListener('mouseup', this.boundMouseUp);
+
     if (!this.isDrawMode) {
       this.isDrawMode = true;
       this.shapeIndex = -1;
@@ -208,9 +229,7 @@ export class Canvas {
 
   redraw() {
     this.shapes.forEach((shape) => {
-      if (this.canvasContext) {
-        shape.draw(this.canvasContext);
-      }
+      if (this.canvasContext) shape.draw(this.canvasContext);
     });
   }
 }

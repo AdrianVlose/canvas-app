@@ -47,6 +47,4 @@ export class App {
       this.canvas.boundColorHandler,
     );
   }
-
-  updateLogger() {}
 }
